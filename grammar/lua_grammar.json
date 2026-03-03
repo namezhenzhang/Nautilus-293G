@@ -1,0 +1,238 @@
+{
+  "start": "START",
+  "rules": {
+    "START": [
+      ["PROGRAM"]
+    ],
+    "PROGRAM": [
+      ["STATEMENT", "\n", "PROGRAM"],
+      [""]
+    ],
+    "STATEMENT": [
+      [";"],
+      [""],
+      ["break"],
+      ["VAR", " = ", "EXPR"],
+      ["local ", "VARLIST", " = ", "EXPRLIST"],
+      ["FUNCTION"],
+      ["COROUTINE"],
+      ["CONDITIONAL"],
+      ["LOOP"],
+      ["return ", "EXPRLIST"],
+      ["goto ", "LABELNAME"],
+      ["::", "LABELNAME", "::"],
+      ["FUNCTIONCALL"],
+      ["print(", "EXPRLIST", ")"],
+      ["METATABLE"]
+    ],
+
+    "LABELNAME": [
+      ["labela"],
+      ["labelb"]
+    ],
+
+    "FUNCTION": [
+      ["FUNCDEF", "(", "FUNCTION_ARGS", ")\n", "PROGRAM", "\nend"]
+    ],
+    "FUNCDEF": [
+      ["function ", "VAR", ".", "IDENTIFIER"],
+      ["function ", "VAR", ":", "IDENTIFIER"],
+      ["function ", "IDENTIFIER"]
+    ],
+    "LAMBDA": [
+      ["function (", "FUNCTION_ARGS", ") ", "PROGRAM", " end"]
+    ],
+    "FUNCTION_ARGS": [
+      [""],
+      ["FUNCTION_ARGLIST"]
+    ],
+    "FUNCTION_ARGLIST": [
+      ["VAR", ", ", "FUNCTION_ARGLIST"],
+      ["VAR"],
+      ["..."]
+    ],
+
+    "COROUTINE": [
+      ["VAR", " = coroutine.create(", "LAMBDA", ")"],
+      ["VAR", " = coroutine.wrap(", "LAMBDA", ")"],
+      ["coroutine.resume(", "VAR", ", ", "ARGS", ")"],
+      ["coroutine.yield(", "ARGS", ")"]
+    ],
+
+    "FUNCTIONCALL": [
+      ["IDENTIFIER", " ", "ARGS"],
+      ["EXPR", ":", "IDENTIFIER", " ", "ARGS"],
+      ["EXPR", ".", "IDENTIFIER", " ", "ARGS"]
+    ],
+    "ARGS": [
+      ["(", "EXPRLIST", ")"],
+      ["TABLECONSTRUCTOR"],
+      ["LITERALSTRING"]
+    ],
+
+    "CONDITIONAL": [
+      ["if ", "EXPR", " then\n", "PROGRAM", "\nend"],
+      ["if ", "EXPR", " then\n", "PROGRAM", "\nelse\n", "PROGRAM", "\nend"]
+    ],
+    "LOOP": [
+      ["while (", "EXPR", ")\ndo\n", "PROGRAM", "\nend"],
+      ["for ", "VAR", "=", "EXPR", ", ", "EXPR", ", ", "EXPR", "\ndo\n", "PROGRAM", "\nend"],
+      ["repeat\n", "PROGRAM", "\nuntil (", "EXPR", ")"]
+    ],
+
+    "EXPRLIST": [
+      ["EXPR", ", ", "EXPRLIST"],
+      ["EXPR"]
+    ],
+    "EXPR": [
+      ["(nil)"],
+      ["(false)"],
+      ["(true)"],
+      ["(", "NUMERAL", ")"],
+      ["LITERALSTRING"],
+      ["TABLECONSTRUCTOR"],
+      ["(", "VAR", "[", "EXPR", "])"],
+      ["(", "EXPR", "BINOP", "EXPR", ")"],
+      ["(", "UNOP", "EXPR", ")"],
+      ["LAMBDA"],
+      ["VAR"],
+      ["FUNCTIONCALL"],
+      ["(", "EXPR", ")"],
+      ["..."]
+    ],
+
+    "BINOP": [
+      ["+"], ["-"], ["*"], ["/"], ["//"], ["^"], ["%"],
+      ["&"], ["~"], ["|"], [">>"], ["<<"],
+      [" .. "],
+      ["<"], ["<="], [">"], [">="], ["=="], ["~="],
+      [" and "], [" or "]
+    ],
+    "UNOP": [
+      ["-"], [" not "], ["#"], ["~"]
+    ],
+
+    "TABLECONSTRUCTOR": [
+      ["{", "FIELDLIST", "}"]
+    ],
+    "METATABLE": [
+      ["VAR", " = setmetatable(", "VAR", ", ", "TABLECONSTRUCTOR", ")"]
+    ],
+    "FIELDLIST": [
+      ["FIELD", ",", "FIELDLIST"],
+      ["FIELD"]
+    ],
+    "FIELD": [
+      ["[", "EXPR", "]=", "EXPR"],
+      ["IDENTIFIER", "=", "EXPR"],
+      ["EXPR"]
+    ],
+
+    "VARLIST": [
+      ["VAR", ", ", "VARLIST"],
+      ["VAR"]
+    ],
+    "VAR": [
+      ["a"], ["b"], ["c"], ["d"], ["e"],
+      ["coroutine"], ["debug"], ["math"], ["io"],
+      ["os"], ["package"], ["string"], ["table"], ["utf8"],
+      ["self"]
+    ],
+
+    "LITERALSTRING": [
+      ["\"", "STRING", "\""],
+      ["[[", "STRING", "]]"]
+    ],
+    "STRING": [
+      [""],
+      ["STRCHR", "STRING"]
+    ],
+    "STRCHR": [
+      [" "], ["0"], ["a"], ["/"], ["."], ["$"],
+      ["ESCAPESEQUENCE"]
+    ],
+    "ESCAPESEQUENCE": [
+      ["\\a"], ["\\b"], ["\\f"], ["\\n"], ["\\r"], ["\\t"], ["\\v"]
+    ],
+
+    "NUMERAL": [
+      ["DECIMAL"],
+      ["0x", "HEXADECIMAL"]
+    ],
+    "DECIMAL": [
+      ["DECIMALDIGIT", "DECIMALDIGITS"],
+      ["DECIMALDIGIT", "DECIMALDIGITS", ".", "DECIMALDIGIT", "DECIMALDIGITS"]
+    ],
+    "HEXADECIMAL": [
+      ["HEXDIGIT", "HEXDIGITS"]
+    ],
+    "DECIMALDIGITS": [
+      ["DECIMALDIGIT", "DECIMALDIGITS"],
+      [""]
+    ],
+    "HEXDIGITS": [
+      ["HEXDIGIT", "HEXDIGITS"],
+      [""]
+    ],
+    "DECIMALDIGIT": [
+      ["0"], ["1"], ["2"], ["3"], ["4"],
+      ["5"], ["6"], ["7"], ["8"], ["9"]
+    ],
+    "HEXDIGIT": [
+      ["a"], ["b"], ["c"], ["d"], ["e"], ["f"],
+      ["A"], ["B"], ["C"], ["D"], ["E"], ["F"],
+      ["DECIMALDIGIT"]
+    ],
+
+    "IDENTIFIER": [
+      ["_VERSION"],
+      ["assert"], ["collectgarbage"], ["dofile"], ["error"],
+      ["getmetatable"], ["ipairs"], ["load"], ["loadfile"],
+      ["next"], ["pairs"], ["pcall"], ["print"],
+      ["rawequal"], ["rawget"], ["rawlen"], ["rawset"],
+      ["require"], ["select"], ["setmetatable"],
+      ["tonumber"], ["tostring"], ["type"], ["xpcall"],
+
+      ["create"], ["isyieldable"], ["resume"], ["running"],
+      ["status"], ["wrap"], ["yield"],
+
+      ["gethook"], ["getinfo"], ["getlocal"], ["getmetatable"],
+      ["getregistry"], ["getupvalue"], ["getuservalue"],
+      ["sethook"], ["setlocal"], ["setmetatable"],
+      ["setupvalue"], ["setuservalue"], ["traceback"],
+      ["upvalueid"], ["upvaluejoin"],
+
+      ["close"], ["flush"], ["input"], ["lines"],
+      ["open"], ["output"], ["read"], ["write"],
+      ["stderr"], ["stdin"], ["stdout"], ["tmpfile"],
+
+      ["abs"], ["acos"], ["asin"], ["atan"],
+      ["ceil"], ["cos"], ["deg"], ["exp"],
+      ["floor"], ["fmod"], ["huge"], ["log"],
+      ["max"], ["maxinteger"], ["min"], ["mininteger"],
+      ["modf"], ["pi"], ["rad"], ["random"], ["randomseed"],
+      ["sin"], ["sqrt"], ["tan"], ["tointeger"], ["ult"],
+
+      ["clock"], ["date"], ["difftime"],
+      ["exit"], ["getenv"], ["remove"], ["rename"],
+      ["setlocale"], ["time"], ["tmpname"],
+
+      ["config"], ["cpath"], ["loaded"], ["loadlib"],
+      ["path"], ["preload"], ["searchers"], ["searchpath"],
+
+      ["byte"], ["char"], ["dump"], ["find"], ["format"],
+      ["gmatch"], ["gsub"], ["len"], ["lower"], ["match"],
+      ["pack"], ["packsize"], ["rep"], ["reverse"],
+      ["sub"], ["unpack"], ["upper"],
+
+      ["concat"], ["insert"], ["move"], ["sort"],
+
+      ["charpattern"], ["codepoint"], ["codes"], ["offset"],
+
+      ["__index"], ["__newindex"],
+      ["__add"], ["__sub"], ["__mul"], ["__div"], ["__mod"],
+      ["__unm"], ["__concat"], ["__eq"], ["__lt"], ["__le"],
+      ["__call"], ["__tostring"]
+    ]
+  }
+}
