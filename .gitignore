@@ -10,3 +10,7 @@ build/
 *.gcov
 
 .DS_Store
+
+results/
+plots/
+results.md
