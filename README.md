@@ -174,3 +174,15 @@ python plot_results.py
 python run_experiments.py --seconds 600 --seeds 5 --initial-seeds 200
 python plot_results.py
 ```
+
+## 8) Implementation Comparison
+
+**This project vs Official Nautilus**: See [IMPLEMENTATION_COMPARISON.md](IMPLEMENTATION_COMPARISON.md) for detailed comparison.
+
+**Key differences**:
+- **Language**: Official uses Rust (production-grade), we use Python (pedagogical)
+- **Instrumentation**: Official uses custom clang wrapper + fork server, we use gcc `--coverage` + gcov
+- **Grammar**: Official uses ANTLR, we use simple JSON CFG
+- **Goal**: Official targets production fuzzing, we target algorithm validation
+
+**This is an independent educational re-implementation of Nautilus paper ideas, not a port of the official codebase.**
