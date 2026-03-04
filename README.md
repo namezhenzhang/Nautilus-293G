@@ -92,7 +92,7 @@ Useful overrides:
 python run_experiments.py --seconds 60 --seeds 1
 python run_experiments.py --group nautilus_full --seconds 120 --seeds 2
 python run_experiments.py --group nautilus_full --full-minimize-mode off --seconds 120 --seeds 2
-python run_experiments.py --seconds 300 --seeds 1 --initial-seeds 50 --coverage-sample-interval 1 --clean-results
+python run_experiments.py --seconds 1800 --seeds 5 --initial-seeds 200 --coverage-sample-interval 1 --clean-results
 
 ```
 
